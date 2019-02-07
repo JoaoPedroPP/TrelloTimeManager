@@ -1,0 +1,17 @@
+.navigation {
+    list-style: none;
+    background-color: rgb(179, 179, 174);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    .itens {
+        display: inline-block;
+        width: 50%;
+        height: 2rem;
+        .tabs {
+            text-align: center;
+            margin: 0;
+            padding-top: 0.5rem;
+        }
+    }
+}
