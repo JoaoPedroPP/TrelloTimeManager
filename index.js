@@ -18,6 +18,7 @@ app.on('ready', () => {
     })
 
     mainWindow.loadURL(`http://localhost:4000`);
+    // mainWindow.loadURL(`file://${__dirname}/dist/TrelloTimeManager/index.html`);
 });
 
 ipcMain.on('setNewAPIKey', (event, data) => {

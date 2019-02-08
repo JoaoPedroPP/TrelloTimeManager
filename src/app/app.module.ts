@@ -12,6 +12,9 @@ import { AuthComponent } from './components/auth/auth.component';
 import { LoggedComponent } from './components/logged/logged.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { DoingComponent } from './components/doing/doing.component';
+import { CardsComponent } from './components/cards/cards.component';
+import { CardComponent } from './components/cards/card/card.component';
+import { ConfigsService } from './services/configs.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { DoingComponent } from './components/doing/doing.component';
     AuthComponent,
     LoggedComponent,
     TodoComponent,
-    DoingComponent
+    DoingComponent,
+    CardsComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,7 @@ import { DoingComponent } from './components/doing/doing.component';
     AppRoutingModule,
     NgxElectronModule
   ],
-  providers: [],
+  providers: [ConfigsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
