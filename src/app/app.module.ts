@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { LoggedComponent } from './components/logged/logged.component';
 import { TodoComponent } from './components/todo/todo.component';
+import { DoingComponent } from './components/doing/doing.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TodoComponent } from './components/todo/todo.component';
     LoginComponent,
     AuthComponent,
     LoggedComponent,
-    TodoComponent
+    TodoComponent,
+    DoingComponent
   ],
   imports: [
     BrowserModule,
