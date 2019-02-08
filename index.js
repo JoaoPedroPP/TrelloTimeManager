@@ -4,6 +4,10 @@ const { app, BrowserWindow, ipcMain } = electron;
 
 let mainWindow;
 
+const cred = {
+    key: "basic"
+}
+
 app.on('ready', () => {
     mainWindow = new BrowserWindow({
         width: 300,
@@ -16,4 +20,6 @@ app.on('ready', () => {
 
 ipcMain.on('setNewAPIKey', (event, data) => {
     console.log(data);
+    cred.key = data;
+    mainWindow.webContents.send('key:set', cred.key);
 });
