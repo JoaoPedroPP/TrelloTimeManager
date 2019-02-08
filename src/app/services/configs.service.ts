@@ -14,9 +14,20 @@ export class ConfigsService {
       this.trelloKey = key;
       this.auth.emit(true);
     });
+    this.getTrelloKey();
+    this.electronService.ipcRenderer.on('key:get:response', (event, data) => {
+      if(data != ''){
+        this.trelloKey = data;
+        this.auth.emit(true);
+      }
+      else this.auth.emit(false);
+    });
   }
 
   setTrelloKey(form: string) {
     this.electronService.ipcRenderer.send("setNewAPIKey", form);
+  }
+  getTrelloKey() {
+    this.electronService.ipcRenderer.send('key:get');
   }
 }
