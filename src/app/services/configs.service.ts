@@ -12,11 +12,13 @@ export class ConfigsService {
 
   constructor(private electronService: ElectronService) { }
 
-  setTrelloKey(form: string) {
+  setTrelloKey(form: object) {
     this.electronService.ipcRenderer.send("setNewAPIKey", form);
     this.electronService.ipcRenderer.on('key:set', (event, data) => {
-      if (data === form){
-        this.key = data;
+      console.log(data, typeof(data));
+      if (data.key === form.key && data.token === form.token){
+        this.key = data.key;
+        this.token = data.token
         this.auth.emit(true);
       }
       else this.auth.emit(false);
@@ -25,8 +27,9 @@ export class ConfigsService {
   getTrelloKey() {
     this.electronService.ipcRenderer.send('key:get');
     this.electronService.ipcRenderer.on('key:get:response', (event, data) => {
-      if (data !== ''){
-        this.key = data;
+      if (data.key !== '' && data.token !== ''){
+        this.key = data.key;
+        this.token = data.token
         this.auth.emit(true);
       }
       else this.auth.emit(false);

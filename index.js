@@ -23,11 +23,12 @@ app.on('ready', () => {
 
 ipcMain.on('setNewAPIKey', (event, data) => {
     console.log(data);
-    cred.key = data;
+    cred.key = data.key;
+    cred.token = data.token
     fs.writeFileSync(`${__dirname}/credentials.json`, JSON.stringify(cred, null, 2));
-    mainWindow.webContents.send('key:set', cred.key);
+    mainWindow.webContents.send('key:set', cred);
 });
 
 ipcMain.on('key:get', (event) => {
-    mainWindow.webContents.send('key:get:response', cred.key);
+    mainWindow.webContents.send('key:get:response', cred);
 });

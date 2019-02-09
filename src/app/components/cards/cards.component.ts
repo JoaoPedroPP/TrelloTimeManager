@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TrelloService } from 'src/app/services/trello-service.service';
 
 @Component({
   selector: 'app-cards',
@@ -11,10 +12,10 @@ export class CardsComponent implements OnInit {
     'pedro'
   ]
 
-  constructor() { }
+  constructor(private trelloService: TrelloService) { }
 
   ngOnInit() {
-    console.log('yep')
+    // this.trelloService.getLists();
   }
 
 }

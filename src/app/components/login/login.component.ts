@@ -26,10 +26,11 @@ export class LoginComponent implements OnInit {
   }
 
   submitCredentials(){
-    const form = new FormData();
-    form.append('key', this.trelloForm.get('key').value);
-    form.append('token', this.trelloForm.get('token').value);
-    this.configService.setTrelloKey(this.trelloForm.get('key').value);
+    const form = {
+      'key':this.trelloForm.get('key').value,
+      'token':this.trelloForm.get('token').value
+    };
+    this.configService.setTrelloKey(form);
   }
 
 }

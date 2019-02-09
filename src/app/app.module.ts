@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { NgxElectronModule } from 'ngx-electron';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,7 @@ import { DoingComponent } from './components/doing/doing.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { CardComponent } from './components/cards/card/card.component';
 import { ConfigsService } from './services/configs.service';
+import { TrelloService } from './services/trello-service.service';
 
 @NgModule({
   declarations: [
@@ -34,9 +36,10 @@ import { ConfigsService } from './services/configs.service';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    HttpClientModule,
     NgxElectronModule
   ],
-  providers: [ConfigsService],
+  providers: [ConfigsService, TrelloService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
