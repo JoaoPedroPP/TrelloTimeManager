@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.configService.getTrelloKey();
     this.configService.auth.subscribe(data => {if(data === true)this.router.navigate(['logged', 'home']);});
   }
 
