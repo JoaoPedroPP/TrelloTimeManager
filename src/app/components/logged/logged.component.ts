@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
 })
 export class LoggedComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
   }
 
   goRoute(event){
-    this.router.navigate(event)
+    this.zone.run(() => this.router.navigate(event));
   }
 
 }
