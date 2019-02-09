@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./logged.component.scss']
 })
 export class LoggedComponent implements OnInit {
+  view: string = 'home';
 
   constructor(private router: Router) { }
 
@@ -14,7 +15,9 @@ export class LoggedComponent implements OnInit {
   }
 
   goRoute(event){
-    this.router.navigate(event)
+    console.log(event)
+    this.view = event;
+    // this.router.navigate(event)
   }
 
 }

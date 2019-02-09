@@ -1,4 +1,10 @@
 <!-- <app-header></app-header>
 <app-login></app-login> -->
 <!-- <app-todo></app-todo> -->
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<ng-container *ngIf="!log">
+    <app-login></app-login>
+</ng-container>
+<ng-container *ngIf="log">
+    <app-logged></app-logged>
+</ng-container>

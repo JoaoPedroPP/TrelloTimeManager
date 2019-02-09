@@ -6,7 +6,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Output('goTo') requestedRoute = new EventEmitter<Array<string>>();
+  @Output('goTo') requestedTab = new EventEmitter<string>();
 
   constructor() { }
 
@@ -14,10 +14,12 @@ export class HeaderComponent implements OnInit {
   }
 
   goTodoTab(){
-    this.requestedRoute.emit(['logged', 'todotab']);
+    this.requestedTab.emit('todo');
+    // this.requestedRoute.emit(['logged', 'todotab']);
   }
   goDoingTab(){
-    this.requestedRoute.emit(['logged', 'doingtab']);
+    this.requestedTab.emit('doing');
+    // this.requestedRoute.emit(['logged', 'doingtab']);
   }
 
 }

@@ -1,2 +1,9 @@
+<!-- <app-header (goTo)="goRoute($event)"></app-header> -->
+<!-- <router-outlet></router-outlet> -->
+
 <app-header (goTo)="goRoute($event)"></app-header>
-<router-outlet></router-outlet>
+<ng-container [ngSwitch]="view">
+    <app-todo *ngSwitchCase="'todo'"></app-todo>
+    <app-doing *ngSwitchCase="'doing'"></app-doing>
+    <app-home *ngSwitchDefault></app-home>
+</ng-container>
