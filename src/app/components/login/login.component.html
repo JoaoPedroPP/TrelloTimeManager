@@ -2,6 +2,8 @@
   <form (ngSubmit)="submitCredentials()" [formGroup]="trelloForm">
     <label for="trelloKey">API key: </label>
     <input id="trelloKey" type="password" formControlName="key">
+    <label for="trelloToken">Token: </label>
+    <input id="trelloToken" type="password" formControlName="token">
     <button type="submit">Connect</button>
   </form>
 </div>
