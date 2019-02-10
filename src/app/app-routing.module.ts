@@ -5,13 +5,18 @@ import { LoginComponent } from './components/login/login.component';
 import { LoggedComponent } from './components/logged/logged.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { DoingComponent } from './components/doing/doing.component';
+import { BoardsComponent } from './components/boards/boards.component';
+import { ListsComponent } from './components/lists/lists.component';
 
 
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
   { path: "logged", component: LoggedComponent, children: [
     { path: "home", component: HomeComponent },
-    { path: "todotab", component: TodoComponent },
+    { path: "todotab", component: TodoComponent, children: [
+      { path: "boards", component: BoardsComponent },
+      { path: "list", component: ListsComponent }
+    ] },
     { path: "doingtab", component: DoingComponent }
   ] },
 

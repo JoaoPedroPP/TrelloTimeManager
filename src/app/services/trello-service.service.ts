@@ -2,6 +2,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { ConfigsService } from './configs.service';
 import { Board } from '../models/board/board.model';
+import { List } from '../models/list/list.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,10 @@ export class TrelloService {
   key: string;
   token: string;
   boardId: string = '596b7bc8f0379d3c16b53a94';
-  board: Array<Board> = [];
-  boards: EventEmitter<Array<Board>> = new EventEmitter();
+  boards: Array<Board> = [];
+  board: EventEmitter<Array<Board>> = new EventEmitter();
+  lists: Array<List> = [];
+  boardSelected: boolean = false;
 
   constructor(private http: HttpClient, private configService: ConfigsService) {
     this.key = this.configService.key;
@@ -22,15 +25,14 @@ export class TrelloService {
   getBoards() {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
-    return this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).toPromise();
-    // this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).subscribe( data => {
-    //   console.log(data)
-    //   data.map((board, i) => {
-    //     console.log(board)
-    //     this.board.push(new Board(board.id, board.name));
-    //   });
-    // });
-    // this.boards.emit(this.board);
+    // return this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).toPromise();
+    this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).subscribe( data => {
+      console.log(data)
+      data.map((board, i) => {
+        console.log(board)
+        this.boards.push(new Board(board.id, board.name));
+      });
+    });
   }
 
   getCards() {
@@ -40,16 +42,21 @@ export class TrelloService {
     // this.http.get(`${this.url}/1/boards/${this.boardId}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
   }
 
-  getLists() {
+  getLists(id) {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
-    return this.http.get(`${this.url}/1/boards/${this.boardId}/lists`, {headers: headers, params: params}).toPromise();
-    // this.http.get(`${this.url}/1/boards/${this.boardId}/lists`, {headers: headers, params: params}).subscribe(data => console.log(data));
+    // return this.http.get(`${this.url}/1/boards/${this.boardId}/lists`, {headers: headers, params: params}).toPromise();
+    this.http.get(`${this.url}/1/boards/${id}/lists`, {headers: headers, params: params}).subscribe(data => {
+      console.log('list', data);
+      data.map((list, i) => {
+        this.lists.push(new List(list.id, list.name, list.idBoard));
+      })
+    });
   }
 
-  getCard() {
+  getCard(listId) {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('fields', 'id,name,badges,labels');
-    this.http.get(`${this.url}/1/lists/${this.boardId}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
+    this.http.get(`${this.url}/1/lists/${listId}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
   }
 }

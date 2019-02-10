@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { TrelloService } from 'src/app/services/trello-service.service';
 import { Board } from 'src/app/models/board/board.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo',
@@ -10,16 +11,18 @@ import { Board } from 'src/app/models/board/board.model';
 export class TodoComponent implements OnInit {
   boards: Array<Board> = [];
 
-  constructor(private trelloService: TrelloService) { }
+  constructor(private trelloService: TrelloService, private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
-    this.trelloService.getBoards().then( data => {
-      data.map((board, i) => {
-        this.boards.push(new Board(board.id, board.name));
-      })
-    }).catch( err => console.log(err));
+    if (!this.trelloService.boardSelected) this.zone.run(() => this.router.navigate(['logged','todotab', 'boards']));
+    // this.boards = this.trelloService.boards;
+    // this.trelloService.getBoards().then( data => {
+    //   data.map((board, i) => {
+    //     this.boards.push(new Board(board.id, board.name));
+    //   })
+    // }).catch( err => console.log(err));
     // this.trelloService.getBoards();
-    // this.trelloService.boards.subscribe(data => {
+    // this.trelloService.board.subscribe(data => {
     //   console.log(data);
     //   this.boards = data;
     // });

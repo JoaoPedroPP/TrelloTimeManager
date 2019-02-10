@@ -17,6 +17,10 @@ import { CardsComponent } from './components/cards/cards.component';
 import { CardComponent } from './components/cards/card/card.component';
 import { ConfigsService } from './services/configs.service';
 import { TrelloService } from './services/trello-service.service';
+import { BoardsComponent } from './components/boards/boards.component';
+import { BoardComponent } from './components/boards/board/board.component';
+import { ListsComponent } from './components/lists/lists.component';
+import { ListComponent } from './components/lists/list/list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { TrelloService } from './services/trello-service.service';
     TodoComponent,
     DoingComponent,
     CardsComponent,
-    CardComponent
+    CardComponent,
+    BoardsComponent,
+    BoardComponent,
+    ListsComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,
