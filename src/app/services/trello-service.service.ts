@@ -16,6 +16,7 @@ export class TrelloService {
   board: EventEmitter<Array<Board>> = new EventEmitter();
   lists: Array<List> = [];
   boardSelected: boolean = false;
+  changeToDoTab: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient, private configService: ConfigsService) {
     this.key = this.configService.key;

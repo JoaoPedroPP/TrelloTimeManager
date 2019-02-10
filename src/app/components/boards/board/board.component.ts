@@ -19,7 +19,8 @@ export class BoardComponent implements OnInit {
   getList(id) {
     console.log(id)
     this.trelloService.getLists(id);
-    this.zone.run(() => this.router.navigate(['logged','todotab', 'list']));
+    this.trelloService.changeToDoTab.emit('lists-component');
+    // this.zone.run(() => this.router.navigate(['logged','todotab', 'list']));
   }
 
 }

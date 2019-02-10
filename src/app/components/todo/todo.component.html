@@ -2,4 +2,9 @@
     <li *ngFor="let board of boards"><p (click)="showLists(board)">{{ board.name }}</p></li>
 </ul> -->
 <!-- <app-cards></app-cards> -->
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->
+<ng-container [ngSwitch]="viewComponent">
+    <app-boards *ngSwitchCase="'boards-component'"></app-boards>
+    <app-lists *ngSwitchCase="'lists-component'"></app-lists>
+    <app-cards *ngSwitchCase="'cards-component'"></app-cards>
+</ng-container>

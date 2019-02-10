@@ -10,11 +10,14 @@ import { Router } from '@angular/router';
 })
 export class TodoComponent implements OnInit {
   boards: Array<Board> = [];
+  viewComponent: string = 'boards-component';
 
   constructor(private trelloService: TrelloService, private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
     if (!this.trelloService.boardSelected) this.zone.run(() => this.router.navigate(['logged','todotab', 'boards']));
+    this.trelloService.boardSelected === false ? this.viewComponent = 'boards-component':this.viewComponent = 'cards-component';
+    this.trelloService.changeToDoTab.subscribe( data => this.viewComponent = data);
     // this.boards = this.trelloService.boards;
     // this.trelloService.getBoards().then( data => {
     //   data.map((board, i) => {
@@ -30,11 +33,11 @@ export class TodoComponent implements OnInit {
 
   showLists(board: Board) {
     // this.trelloService.getCard();
-    this.trelloService.boardId = board.id
-    this.trelloService.getLists().then( data => {
-      console.log(data)
-      // this.trelloService.getCards();  
-    })
+    // this.trelloService.boardId = board.id
+    // this.trelloService.getLists().then( data => {
+    //   console.log(data)
+    //   this.trelloService.getCards();  
+    // })
   }
 
 }

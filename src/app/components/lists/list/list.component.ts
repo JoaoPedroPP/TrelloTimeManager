@@ -17,6 +17,7 @@ export class ListComponent implements OnInit {
 
   pushCards(listObj: List){
     this.trelloService.getCard(listObj.id);
+    this.trelloService.changeToDoTab.emit('cards-component')
   }
 
 }
