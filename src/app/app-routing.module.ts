@@ -13,10 +13,7 @@ const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
   { path: "logged", component: LoggedComponent, children: [
     { path: "home", component: HomeComponent },
-    { path: "todotab", component: TodoComponent, children: [
-      { path: "boards", component: BoardsComponent },
-      { path: "list", component: ListsComponent }
-    ] },
+    { path: "todotab", component: TodoComponent },
     { path: "doingtab", component: DoingComponent }
   ] },
 
