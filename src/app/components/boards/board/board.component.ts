@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class BoardComponent implements OnInit {
   @Input() board: Board;
 
-  constructor(private trelloService: TrelloService, private router: Router, private zone: NgZone) { }
+  constructor(private trelloService: TrelloService) { }
 
   ngOnInit() {
   }
@@ -20,7 +20,6 @@ export class BoardComponent implements OnInit {
     console.log(id)
     this.trelloService.getLists(id);
     this.trelloService.changeToDoTab.emit('lists-component');
-    // this.zone.run(() => this.router.navigate(['logged','todotab', 'list']));
   }
 
 }

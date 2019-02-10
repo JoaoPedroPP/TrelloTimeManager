@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
 import { ConfigsService } from './configs.service';
 import { Board } from '../models/board/board.model';
 import { List } from '../models/list/list.model';
+import { Card } from '../models/card/card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class TrelloService {
   boards: Array<Board> = [];
   board: EventEmitter<Array<Board>> = new EventEmitter();
   lists: Array<List> = [];
+  cards: Array<Card> = [];
   boardSelected: boolean = false;
   changeToDoTab: EventEmitter<string> = new EventEmitter();
 
@@ -36,11 +38,19 @@ export class TrelloService {
     });
   }
 
-  getCards() {
+  getCards(idBoard, idList) {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
-    return this.http.get(`${this.url}/1/boards/${this.boardId}/cards`, {headers: headers, params: params}).toPromise();
-    // this.http.get(`${this.url}/1/boards/${this.boardId}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
+    // return this.http.get(`${this.url}/1/boards/${this.boardId}/cards`, {headers: headers, params: params}).toPromise();
+    // this.http.get(`${this.url}/1/boards/${id}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
+    this.http.get(`${this.url}/1/boards/${idBoard}/cards`, {headers: headers, params: params}).subscribe(data => {
+      // this.cards = data.filter(data => {return data.idList === idList});
+      data.map((card, i) => {
+        if (card.idList === idList) this.cards.push(new Card(card.id, card.name, card.idList, card.idBoard));
+      });
+      this.boardSelected = true;
+      console.log(this.cards);
+    });
   }
 
   getLists(id) {

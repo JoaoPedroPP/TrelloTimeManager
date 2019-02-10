@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TrelloService } from 'src/app/services/trello-service.service';
+import { Card } from 'src/app/models/card/card.model';
 
 @Component({
   selector: 'app-cards',
@@ -7,15 +8,16 @@ import { TrelloService } from 'src/app/services/trello-service.service';
   styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit {
-  cards = [
-    'joao',
-    'pedro'
-  ]
+  cards: Array<Card> = [];
+  // cards = [
+  //   'joao',
+  //   'pedro'
+  // ]
 
   constructor(private trelloService: TrelloService) { }
 
   ngOnInit() {
-    // this.trelloService.getLists();
+    this.cards = this.trelloService.cards;
   }
 
 }

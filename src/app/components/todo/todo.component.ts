@@ -15,20 +15,8 @@ export class TodoComponent implements OnInit {
   constructor(private trelloService: TrelloService, private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
-    if (!this.trelloService.boardSelected) this.zone.run(() => this.router.navigate(['logged','todotab', 'boards']));
     this.trelloService.boardSelected === false ? this.viewComponent = 'boards-component':this.viewComponent = 'cards-component';
     this.trelloService.changeToDoTab.subscribe( data => this.viewComponent = data);
-    // this.boards = this.trelloService.boards;
-    // this.trelloService.getBoards().then( data => {
-    //   data.map((board, i) => {
-    //     this.boards.push(new Board(board.id, board.name));
-    //   })
-    // }).catch( err => console.log(err));
-    // this.trelloService.getBoards();
-    // this.trelloService.board.subscribe(data => {
-    //   console.log(data);
-    //   this.boards = data;
-    // });
   }
 
   showLists(board: Board) {
