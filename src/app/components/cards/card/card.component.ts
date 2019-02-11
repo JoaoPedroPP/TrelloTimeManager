@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { Card } from 'src/app/models/card/card.model';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -10,13 +10,15 @@ import { Router } from '@angular/router';
 export class CardComponent implements OnInit {
   @Input() card: Card;
 
-  constructor(private router: Router, private zone: NgZone) { }
+  constructor(private router: Router, private route: ActivatedRoute, private zone: NgZone) { }
 
   ngOnInit() {
   }
 
   startTask(card: Card){
-    this.zone.run(() => this.router.navigate(['logged', 'home']));
+    // this.route.data = card;
+    console.log(this.route)
+    this.zone.run(() => this.router.navigate(['logged', 'home', card.id]));
   }
 
 }

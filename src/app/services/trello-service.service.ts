@@ -70,4 +70,10 @@ export class TrelloService {
     const params = new HttpParams().set('fields', 'id,name,badges,labels');
     this.http.get(`${this.url}/1/lists/${listId}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
   }
+
+  findCard(id){
+    const card = this.cards.find( card => {return card.id === id});
+    console.log(card.name);
+    return card;
+  }
 }

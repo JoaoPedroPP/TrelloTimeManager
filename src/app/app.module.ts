@@ -21,6 +21,7 @@ import { BoardsComponent } from './components/boards/boards.component';
 import { BoardComponent } from './components/boards/board/board.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { ListComponent } from './components/lists/list/list.component';
+import { CardResolver } from './services/card-resolver.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { ListComponent } from './components/lists/list/list.component';
     HttpClientModule,
     NgxElectronModule
   ],
-  providers: [ConfigsService, TrelloService],
+  providers: [ConfigsService, TrelloService, CardResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
