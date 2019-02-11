@@ -18,7 +18,7 @@ export class CardComponent implements OnInit {
   startTask(card: Card){
     // this.route.data = card;
     console.log(this.route)
-    this.zone.run(() => this.router.navigate(['logged', 'home', card.id]));
+    this.zone.run(() => this.router.navigate(['logged', card.id]));
   }
 
 }

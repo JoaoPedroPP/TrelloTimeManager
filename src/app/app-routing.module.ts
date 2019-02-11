@@ -15,11 +15,10 @@ import { TimerComponent } from './components/timer/timer.component';
 const routes: Routes = [
   { path: "", component: LoginComponent, pathMatch: "full" },
   { path: "logged", component: LoggedComponent, children: [
-    { path: "home", component: HomeComponent, children: [
-      { path: ":id", component: TimerComponent, resolve: {card: CardResolver} },
-    ] },
+    { path: "home", component: HomeComponent },
     { path: "todotab", component: TodoComponent },
     { path: "doingtab", component: DoingComponent },
+    { path: ":id", component: HomeComponent, resolve: {card: CardResolver} },
   ] },
 
   { path: "**", redirectTo: "" }

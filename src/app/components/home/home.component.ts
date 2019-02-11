@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Data } from '@angular/router';
+import { Card } from 'src/app/models/card/card.model';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   show: boolean = false;
+  card: Card;
+  text: string = "Ola, Voce ainda nao possui tarefas ativas, escolha uma para comecar :)"
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.data.subscribe((data: Data) => {
+      console.log(data['card']);
+      this.card = data['card'];
+    })
   }
 
 }

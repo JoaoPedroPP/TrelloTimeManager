@@ -1,5 +1,6 @@
-<h4>Ola, Voce ainda nao possui tarefas ativas, escolha uma para comecar :)</h4>
-<router-outlet></router-outlet>
-<!-- <ng-container *ngIf="show">
+<h4>{{ text }}</h4>
+<!-- <router-outlet></router-outlet> -->
+<ng-container *ngIf="card !== undefined">
   <p>{{ card.name }}</p>
-</ng-container> -->
+  <app-timer></app-timer>
+</ng-container>

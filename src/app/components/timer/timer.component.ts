@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
 
 @Component({
   selector: 'app-timer',
@@ -8,12 +7,9 @@ import { ActivatedRoute, Data } from '@angular/router';
 })
 export class TimerComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit() {
-    this.route.data.subscribe((data: Data) => {
-      console.log(data['card']);
-    })
   }
 
 }
