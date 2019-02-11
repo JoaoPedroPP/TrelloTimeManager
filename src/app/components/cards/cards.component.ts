@@ -9,10 +9,6 @@ import { Card } from 'src/app/models/card/card.model';
 })
 export class CardsComponent implements OnInit {
   cards: Array<Card> = [];
-  // cards = [
-  //   'joao',
-  //   'pedro'
-  // ]
 
   constructor(private trelloService: TrelloService) { }
 

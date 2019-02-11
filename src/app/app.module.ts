@@ -22,6 +22,7 @@ import { BoardComponent } from './components/boards/board/board.component';
 import { ListsComponent } from './components/lists/lists.component';
 import { ListComponent } from './components/lists/list/list.component';
 import { CardResolver } from './services/card-resolver.service';
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CardResolver } from './services/card-resolver.service';
     BoardsComponent,
     BoardComponent,
     ListsComponent,
-    ListComponent
+    ListComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

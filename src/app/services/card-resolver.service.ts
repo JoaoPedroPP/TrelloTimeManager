@@ -12,6 +12,7 @@ export class CardResolver implements Resolve<Card> {
     constructor(private trelloService: TrelloService){ }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Card {
+        console.log(route.params)
         return this.trelloService.findCard(route.params['id']);
     }
 }

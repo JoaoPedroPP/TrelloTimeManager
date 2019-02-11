@@ -73,7 +73,6 @@ export class TrelloService {
 
   findCard(id){
     const card = this.cards.find( card => {return card.id === id});
-    console.log(card.name);
     return card;
   }
 }
