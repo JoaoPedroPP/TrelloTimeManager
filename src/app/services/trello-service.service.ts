@@ -29,9 +29,9 @@ export class TrelloService {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
     // return this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).toPromise();
-    this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).subscribe( data => {
+    this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).subscribe( (data: Array<Object>) => {
       console.log(data)
-      data.map((board, i) => {
+      data.map((board: any, i: number) => {
         console.log(board)
         this.boards.push(new Board(board.id, board.name));
       });
@@ -43,9 +43,9 @@ export class TrelloService {
     const params = new HttpParams().set('key', this.key).set('token', this.token);
     // return this.http.get(`${this.url}/1/boards/${this.boardId}/cards`, {headers: headers, params: params}).toPromise();
     // this.http.get(`${this.url}/1/boards/${id}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
-    this.http.get(`${this.url}/1/boards/${idBoard}/cards`, {headers: headers, params: params}).subscribe(data => {
+    this.http.get(`${this.url}/1/boards/${idBoard}/cards`, {headers: headers, params: params}).subscribe((data: Array<object>) => {
       // this.cards = data.filter(data => {return data.idList === idList});
-      data.map((card, i) => {
+      data.map((card: any, i: number) => {
         if (card.idList === idList) this.cards.push(new Card(card.id, card.name, card.idList, card.idBoard));
       });
       this.boardSelected = true;
@@ -57,9 +57,9 @@ export class TrelloService {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
     // return this.http.get(`${this.url}/1/boards/${this.boardId}/lists`, {headers: headers, params: params}).toPromise();
-    this.http.get(`${this.url}/1/boards/${id}/lists`, {headers: headers, params: params}).subscribe(data => {
+    this.http.get(`${this.url}/1/boards/${id}/lists`, {headers: headers, params: params}).subscribe((data: Array<object>) => {
       console.log('list', data);
-      data.map((list, i) => {
+      data.map((list: any, i: number) => {
         this.lists.push(new List(list.id, list.name, list.idBoard));
       })
     });

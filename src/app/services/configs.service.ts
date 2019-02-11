@@ -12,7 +12,7 @@ export class ConfigsService {
 
   constructor(private electronService: ElectronService) { }
 
-  setTrelloKey(form: object) {
+  setTrelloKey(form) {
     this.electronService.ipcRenderer.send("setNewAPIKey", form);
     this.electronService.ipcRenderer.on('key:set', (event, data) => {
       console.log(data, typeof(data));
