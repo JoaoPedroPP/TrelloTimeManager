@@ -33,3 +33,7 @@ ipcMain.on('setNewAPIKey', (event, data) => {
 ipcMain.on('key:get', (event) => {
     mainWindow.webContents.send('key:get:response', cred);
 });
+
+ipcMain.on('timer:counting', (event, data) => {
+    console.log(data);
+})

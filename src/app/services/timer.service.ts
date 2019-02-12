@@ -11,7 +11,8 @@ export class TimerService {
 
   constructor(private electronService: ElectronService) { }
 
-  getTime() {
-    console.log(this.electronService.ipcRenderer.on('timer:counting', (event, data) => console.log(data)));
+  sendTime(time:string) {
+    this.electronService.ipcRenderer.send('timer:counting', time);
+    // console.log(this.electronService.ipcRenderer.on('timer:counting', (event, data) => console.log(data)));
   }
 }

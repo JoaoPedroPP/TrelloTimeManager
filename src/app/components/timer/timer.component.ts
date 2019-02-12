@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TrelloService } from 'src/app/services/trello-service.service';
 import { Card } from 'src/app/models/card/card.model';
+import { TimerService } from 'src/app/services/timer.service';
 
 @Component({
   selector: 'app-timer',
@@ -15,8 +16,9 @@ export class TimerComponent implements OnInit {
   counter: any = null;
   count: boolean = true;
   playPause: string = 'Pause'
+  clock: string = '00:00:00';
 
-  constructor(private trelloService: TrelloService) { }
+  constructor(private trelloService: TrelloService, private timerService: TimerService) { }
 
   ngOnInit() {
     this.trelloService.moveCardDoing(this.card.id, this.card.listId, this.card.doingList);
@@ -24,6 +26,8 @@ export class TimerComponent implements OnInit {
       if (this.count) this.seconds++;
       if (this.count && this.seconds == 60) {this.seconds = 0; this.minutes++;}
       if (this.count && this.minutes == 60) {this.minutes = 0; this.hours++;}
+      this.clock = `${this.hours > 9 ? this.hours:'0'+this.hours}:${this.minutes > 9 ? this.minutes:'0'+this.minutes}:${this.seconds > 9 ? this.seconds:'0'+this.seconds}`
+      if(this.count) this.timerService.sendTime(this.clock);
     }, 1000);
   }
 
@@ -34,6 +38,10 @@ export class TimerComponent implements OnInit {
 
   stopTask() {
     clearInterval(this.counter);
+    this.clock = '00:00:00';
+    setTimeout(() => {
+      this.timerService.sendTime(this.clock)
+    }, 500)
   }
 
 }

@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
     this.trelloService.boards = [];
     this.trelloService.listSelected = false;
     this.trelloService.lists = [];
+    this.trelloService.cards = [];
     this.zone.run(() => this.router.navigate(['logged', 'home']));
   }
 
