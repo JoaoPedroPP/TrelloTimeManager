@@ -18,6 +18,7 @@ export class TrelloService {
   lists: Array<List> = [];
   cards: Array<Card> = [];
   boardSelected: boolean = false;
+  listSelected: boolean = false;
   changeToDoTab: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient, private configService: ConfigsService) {
@@ -28,11 +29,14 @@ export class TrelloService {
   getBoards() {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
-    this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).subscribe( (data: Array<Object>) => {
-      data.map((board: any, i: number) => {
-        this.boards.push(new Board(board.id, board.name));
+    if (!this.boardSelected){
+      this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).subscribe( (data: Array<Object>) => {
+        data.map((board: any, i: number) => {
+          this.boards.push(new Board(board.id, board.name));
+        });
+        this.boardSelected = true;
       });
-    });
+    }
   }
 
   getCards(idBoard, idList) {
@@ -54,6 +58,7 @@ export class TrelloService {
       data.map((list: any, i: number) => {
         this.lists.push(new List(list.id, list.name, list.idBoard));
       })
+      this.listSelected = true;
     });
   }
 
@@ -69,15 +74,14 @@ export class TrelloService {
   }
 
   moveCardDoing(cardId, idList, newListId) {
-    const headers = new HttpHeaders();
-    const params = new HttpParams().set('value', newListId);
+    const headers = new HttpHeaders({"Content-Type":"application/json"});
+    const params = new HttpParams().set('value', newListId).set("key",this.key).set("token",this.token).set("pos", "top");
     const body = {};
     this.http.put(`${this.url}/1/cards/${cardId}/idList`, body, {headers: headers, params: params}).subscribe( data => console.log(data));
   }
 
   findDoingList() {
     const list =  this.lists.find( list => {return list.name == 'Doing'});
-    console.log(list);
     return list === undefined ? '':list.id;
   }
 }

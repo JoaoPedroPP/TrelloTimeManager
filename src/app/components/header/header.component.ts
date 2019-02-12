@@ -1,4 +1,6 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+import { TrelloService } from 'src/app/services/trello-service.service';
 
 @Component({
   selector: 'app-header',
@@ -6,18 +8,18 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Output('goTo') requestedRoute = new EventEmitter<Array<string>>();
 
-  constructor() { }
+  constructor(private zone: NgZone, private router: Router, private trelloService: TrelloService) { }
 
   ngOnInit() {
   }
 
   goTodoTab(){
-    this.requestedRoute.emit(['logged', 'todotab']);
+    if(!this.trelloService.boardSelected) this.trelloService.getBoards();
+    this.zone.run(() => this.router.navigate(['logged', 'todotab']))
   }
   goDoingTab(){
-    this.requestedRoute.emit(['logged', 'doingtab']);
+    this.zone.run(() => this.router.navigate(['logged', 'doingtab']))
   }
 
 }

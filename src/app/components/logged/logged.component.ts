@@ -14,9 +14,4 @@ export class LoggedComponent implements OnInit {
   ngOnInit() {
   }
 
-  goRoute(event){
-    this.trelloService.getBoards();
-    this.zone.run(() => this.router.navigate(event));
-  }
-
 }
