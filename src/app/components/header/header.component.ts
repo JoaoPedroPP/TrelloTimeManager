@@ -21,5 +21,12 @@ export class HeaderComponent implements OnInit {
   goDoingTab(){
     this.zone.run(() => this.router.navigate(['logged', 'doingtab']))
   }
+  returnHome(){
+    this.trelloService.boardSelected = false;
+    this.trelloService.boards = [];
+    this.trelloService.listSelected = false;
+    this.trelloService.lists = [];
+    this.zone.run(() => this.router.navigate(['logged', 'home']));
+  }
 
 }

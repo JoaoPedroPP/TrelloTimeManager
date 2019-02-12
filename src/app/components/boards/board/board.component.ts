@@ -18,7 +18,7 @@ export class BoardComponent implements OnInit {
 
   getList(id) {
     console.log(id)
-    this.trelloService.getLists(id);
+    if(!this.trelloService.listSelected) this.trelloService.getLists(id);
     this.trelloService.changeToDoTab.emit('lists-component');
   }
 
