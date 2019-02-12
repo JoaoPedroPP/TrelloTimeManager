@@ -1,3 +1,5 @@
-<h1>{{ hours }}:{{ minutes }}:{{ seconds }}</h1>
-<button type="button" (click)="pauseTask()">{{ playPause }}</button>
-<button type="button" (click)="stopTask()">Stop</button>
+<div class="timer">
+    <h1 class="timer__clock">{{ hours }}:{{ minutes }}:{{ seconds }}</h1>
+    <button type="button" (click)="pauseTask()">{{ playPause }}</button>
+    <button type="button" (click)="stopTask()">Stop</button>
+</div>

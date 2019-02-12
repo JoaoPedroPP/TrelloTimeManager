@@ -1,6 +1,8 @@
-<h4>{{ text }}</h4>
+<div class="home">
+  <h4>{{ text }}</h4>
+  <ng-container *ngIf="card !== undefined">
+    <p>{{ card.name }}</p>
+    <app-timer [card]="card"></app-timer>
+  </ng-container>
+</div>
 <!-- <router-outlet></router-outlet> -->
-<ng-container *ngIf="card !== undefined">
-  <p>{{ card.name }}</p>
-  <app-timer [card]="card"></app-timer>
-</ng-container>
