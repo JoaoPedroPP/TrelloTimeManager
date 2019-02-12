@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     this.route.data.subscribe((data: Data) => {
       console.log(data['card']);
       this.card = data['card'];
+      this.text = `O seginte card foi selecionado ${this.card.name} e a contagem de tempo ja iniciou :)`
     })
   }
 

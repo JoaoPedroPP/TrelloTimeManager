@@ -28,11 +28,8 @@ export class TrelloService {
   getBoards() {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
-    // return this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).toPromise();
     this.http.get(`${this.url}/1/members/me/boards`, {headers: headers, params: params}).subscribe( (data: Array<Object>) => {
-      console.log(data)
       data.map((board: any, i: number) => {
-        console.log(board)
         this.boards.push(new Board(board.id, board.name));
       });
     });
@@ -41,24 +38,19 @@ export class TrelloService {
   getCards(idBoard, idList) {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
-    // return this.http.get(`${this.url}/1/boards/${this.boardId}/cards`, {headers: headers, params: params}).toPromise();
-    // this.http.get(`${this.url}/1/boards/${id}/cards`, {headers: headers, params: params}).subscribe(data => console.log(data));
+    const doingList = this.findDoingList();
     this.http.get(`${this.url}/1/boards/${idBoard}/cards`, {headers: headers, params: params}).subscribe((data: Array<object>) => {
-      // this.cards = data.filter(data => {return data.idList === idList});
       data.map((card: any, i: number) => {
-        if (card.idList === idList) this.cards.push(new Card(card.id, card.name, card.idList, card.idBoard));
+        if (card.idList === idList) this.cards.push(new Card(card.id, card.name, card.idList, card.idBoard, doingList));
       });
       this.boardSelected = true;
-      console.log(this.cards);
     });
   }
 
   getLists(id) {
     const headers = new HttpHeaders();
     const params = new HttpParams().set('key', this.key).set('token', this.token);
-    // return this.http.get(`${this.url}/1/boards/${this.boardId}/lists`, {headers: headers, params: params}).toPromise();
     this.http.get(`${this.url}/1/boards/${id}/lists`, {headers: headers, params: params}).subscribe((data: Array<object>) => {
-      console.log('list', data);
       data.map((list: any, i: number) => {
         this.lists.push(new List(list.id, list.name, list.idBoard));
       })
@@ -74,5 +66,18 @@ export class TrelloService {
   findCard(id){
     const card = this.cards.find( card => {return card.id === id});
     return card;
+  }
+
+  moveCardDoing(cardId, idList, newListId) {
+    const headers = new HttpHeaders();
+    const params = new HttpParams().set('value', newListId);
+    const body = {};
+    this.http.put(`${this.url}/1/cards/${cardId}/idList`, body, {headers: headers, params: params}).subscribe( data => console.log(data));
+  }
+
+  findDoingList() {
+    const list =  this.lists.find( list => {return list.name == 'Doing'});
+    console.log(list);
+    return list === undefined ? '':list.id;
   }
 }

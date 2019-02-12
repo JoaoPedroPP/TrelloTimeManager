@@ -2,5 +2,5 @@
 <!-- <router-outlet></router-outlet> -->
 <ng-container *ngIf="card !== undefined">
   <p>{{ card.name }}</p>
-  <app-timer></app-timer>
+  <app-timer [card]="card"></app-timer>
 </ng-container>
