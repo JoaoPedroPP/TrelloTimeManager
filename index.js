@@ -3,10 +3,11 @@ const Icon = require("./electronFiles/models/Icon/icon.model")
 const fs = require('fs');
 // const Counter = require('../TrelloTimeManager/electronFiles/models/TimerCounter/timerCounter.model');
 
-const { app, BrowserWindow, ipcMain } = electron;
+const { app, BrowserWindow, ipcMain, } = electron;
 
 let mainWindow;
 let tray;
+let monitor;
 
 let cred = fs.readFileSync(`${__dirname}/credentials.json`,{
     encoding: "utf8"
@@ -26,6 +27,14 @@ app.on('ready', () => {
     mainWindow.loadURL(`http://localhost:4000`);
     // mainWindow.loadURL(`file://${__dirname}/dist/TrelloTimeManager/index.html`);
     tray = new Icon(`${__dirname}/src/assets/icons8-planeta-saturno-48.png`, mainWindow)
+
+    electron.powerMonitor.on('lock-screen', () => {
+        console.log('lock');
+    });
+
+    electron.powerMonitor.on('unlock-screen', () => {
+        console.log('unlock');
+    });
 });
 
 ipcMain.on('setNewAPIKey', (event, data) => {
@@ -42,5 +51,4 @@ ipcMain.on('key:get', (event) => {
 
 ipcMain.on('timer:counting', (event, data) => {
     tray.setTitle(data);
-    // console.log(data);
 })
