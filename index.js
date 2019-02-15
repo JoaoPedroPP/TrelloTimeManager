@@ -28,12 +28,12 @@ app.on('ready', () => {
     // mainWindow.loadURL(`file://${__dirname}/dist/TrelloTimeManager/index.html`);
     tray = new Icon(`${__dirname}/src/assets/icons8-planeta-saturno-48.png`, mainWindow)
 
-    electron.powerMonitor.on('lock-screen', () => {
-        console.log('lock');
+    electron.powerMonitor.on('lock-screen', (event) => {
+        mainWindow.webContents.send('screen-off')
     });
 
-    electron.powerMonitor.on('unlock-screen', () => {
-        console.log('unlock');
+    electron.powerMonitor.on('unlock-screen', (event) => {
+        mainWindow.webContents.send('screen-on');
     });
 });
 
