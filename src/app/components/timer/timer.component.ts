@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { TrelloService } from 'src/app/services/trello-service.service';
 import { Card } from 'src/app/models/card/card.model';
 import { TimerService } from 'src/app/services/timer.service';
+import { ElectronService } from 'ngx-electron';
 
 @Component({
   selector: 'app-timer',
@@ -18,9 +19,11 @@ export class TimerComponent implements OnInit {
   playPause: string = 'Pause'
   clock: string = '00:00:00';
 
-  constructor(private trelloService: TrelloService, private timerService: TimerService) { }
+  constructor(private trelloService: TrelloService, private timerService: TimerService, private electronService: ElectronService) { }
 
   ngOnInit() {
+    this.electronService.ipcRenderer.on("screen-off", (event) => this.count = false);
+    this.electronService.ipcRenderer.on("screen-on", (event) => this.count = true);
     this.trelloService.moveCardDoing(this.card.id, this.card.listId, this.card.doingList);
     this.counter = setInterval(() => {
       if (this.count) this.seconds++;
@@ -40,7 +43,7 @@ export class TimerComponent implements OnInit {
     clearInterval(this.counter);
     this.clock = '00:00:00';
     setTimeout(() => {
-      this.timerService.sendTime(this.clock)
+      this.timerService.sendTime('')
     }, 500)
   }
 
